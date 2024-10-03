@@ -8,7 +8,7 @@ import { Game, Types } from "phaser";
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
-const config: Types.Core.GameConfig = {
+export const config: Types.Core.GameConfig = {
   type: Phaser.AUTO,
   width: 532,
   height: 418,
@@ -16,7 +16,7 @@ const config: Types.Core.GameConfig = {
   backgroundColor: '#000000',
   pixelArt: true,
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [
