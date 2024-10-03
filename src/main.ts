@@ -19,6 +19,10 @@ export const config: Types.Core.GameConfig = {
     mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
+  fps: {
+    target: 25,
+    forceSetTimeOut: true
+  },
   scene: [
     Boot,
     Preloader,
