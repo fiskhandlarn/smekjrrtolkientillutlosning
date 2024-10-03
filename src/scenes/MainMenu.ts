@@ -1,5 +1,5 @@
 import { Scene, GameObjects } from 'phaser';
-import game, { config } from '../main';
+import { config } from '../main';
 
 export class MainMenu extends Scene
 {
@@ -17,7 +17,7 @@ export class MainMenu extends Scene
     this.logWithTime('create');
 
     this.time.addEvent({
-      delay: this.framesToMilliseconds(5);
+      delay: this.framesToMilliseconds(5),
       loop: false,
       callback: () => this.begin(),
       callbackScope: this,
@@ -34,6 +34,9 @@ export class MainMenu extends Scene
 
     this.introText = this.add.image(config.width / 2 + 5, config.height / 2 - 9 - 311, 'introText');
 
+    const music = this.sound.add('intro');
+    music.play();
+
     // this.input.once('pointerdown', () => {
     //   this.scene.start('Game');
     // });
@@ -46,8 +49,8 @@ export class MainMenu extends Scene
           ease: 'none',
         }
       },
-      delay: this.framesToMilliseconds(20-5);
-      duration: this.framesToMilliseconds(49-20-5);
+      delay: this.framesToMilliseconds(20-5),
+      duration: this.framesToMilliseconds(49-20-5),
       onComplete: () => {
         this.logWithTime('complete intro anim!');
       }
