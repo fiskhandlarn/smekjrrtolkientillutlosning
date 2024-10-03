@@ -1,16 +1,19 @@
-import { Scene } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 import { config } from '../main';
 
 export class Preloader extends Scene
 {
+  text: GameObjects.Text;
+
   constructor () {
     super('Preloader');
   }
 
   init () {
-    //  We loaded this image in our Boot Scene, so we can display it here
-    this.add.image(config.width / 2, config.height / 2, 'background');
 
+
+    // TODO preload animation
+    /*
     //  A simple progress bar. This is the outline of the bar.
     this.add.rectangle(512, 384, 468, 32).setStrokeStyle(1, 0xffffff);
 
@@ -19,17 +22,17 @@ export class Preloader extends Scene
 
     //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
     this.load.on('progress', (progress: number) => {
-
       //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
       bar.width = 4 + (460 * progress);
-
     });
+   */
   }
 
   preload () {
     //  Load the assets for the game - Replace with your own assets
     this.load.setPath('assets');
 
+    this.load.image('background', 'Graphics_2_bg.png');
     this.load.image('introText', 'Graphics_70_rubriklager.png');
 
     this.load.audio('intro', 'Sounds_4_peergynt.mp3');
@@ -39,7 +42,13 @@ export class Preloader extends Scene
     //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
     //  For example, you can define global animations here, so we can use them in other scenes.
 
-    //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-    this.scene.start('MainMenu');
+    // TODO replace with gfx
+    const text = this.add.text(0, 0, 'START (todo replace me with gfx)', { font: '16px Courier', fill: '#00ff00' });
+    text.setInteractive();
+    text.once('pointerdown', () => {
+      console.log('!');
+
+      this.scene.start('MainMenu');
+    });
   }
 }
