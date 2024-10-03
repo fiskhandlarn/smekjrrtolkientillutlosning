@@ -17,8 +17,8 @@ jobs:
         with:
           FLAGS: -avzr --delete
           EXCLUDES: --exclude .github
-          USER: ${{ secrets.USER }}
-          HOST: ${{ secrets.HOST }}
+          USER: ${{ vars.USER }}
+          HOST: ${{ vars.HOST }}
           LOCALPATH: /
-          REMOTEPATH: ${{ secrets.REMOTEPATH }}
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          REMOTEPATH: ${{ vars.REMOTEPATH }}
+          DEPLOY_KEY: ${{ vars.DEPLOY_KEY }}
