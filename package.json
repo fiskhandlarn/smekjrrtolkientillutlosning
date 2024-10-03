@@ -1,30 +1,34 @@
 {
-    "name": "template-bun",
-    "description": "A Phaser 3 template using bun.",
-    "version": "1.0.1",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/phaserjs/template-bun.git"
+    "name": "template-esbuild-ts",
+    "description": "A Phaser 3 TypeScript template using esbuild.",
+    "version": "1.2.1",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node log.js dev & node esbuild/dev.server.mjs -w",
+        "build": "node log.js build & node esbuild/build.prod.mjs",
+        "dev-nolog": "node esbuild/dev.server.mjs -w",
+        "build-nolog": "node esbuild/build.prod.mjs"
     },
     "author": "Phaser Studio <support@phaser.io> (https://phaser.io/)",
-    "license": "MIT",
-    "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/phaserjs/template-esbuild-ts.git"
+    },
     "bugs": {
-        "url": "https://github.com/phaserjs/template-bun/issues"
+        "url": "https://github.com/phaserjs/template-esbuild-ts/issues"
     },
-    "homepage": "https://github.com/phaserjs/template-bun#readme",
-    "scripts": {
-        "dev": "bun log.js dev & bunx --bun vite --config vite/config.dev.mjs",
-        "build": "bun log.js build & bunx --bun vite build --config vite/config.prod.mjs",
-        "dev-nolog": "bunx --bun vite --config vite/config.dev.mjs",
-        "build-nolog": "bunx --bun vite build --config vite/config.prod.mjs"
-    },
-    "devDependencies": {
-        "terser": "^5.31.0",
-        "typescript": "^5.4.5",
-        "vite": "^5.2.11"
-    },
+    "homepage": "https://github.com/phaserjs/template-esbuild-ts#readme",
+    "license": "MIT",
     "dependencies": {
         "phaser": "^3.85.2"
+    },
+    "devDependencies": {
+        "@jgoz/esbuild-plugin-livereload": "^2.0.5",
+        "esbuild": "^0.21.2",
+        "esbuild-plugin-clean": "^1.0.1",
+        "esbuild-plugin-copy": "^2.1.1",
+        "esbuild-plugin-inline-image": "^0.0.9",
+        "esbuild-serve": "^1.0.1",
+        "typescript": "^5.4.5"
     }
 }
