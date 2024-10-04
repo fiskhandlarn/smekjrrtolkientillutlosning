@@ -2,12 +2,14 @@ import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
 import { logWithTime } from '../logWithTime';
 import { Blunda } from '../sprites/Blunda';
+import { Huvud } from '../sprites/Huvud';
 
 export class Game extends Scene
 {
   background: GameObjects.Image;
   introText: GameObjects.Image;
   blunda: Blunda;
+  huvud: Huvud;
   tolkien: GameObjects.Image;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
@@ -30,6 +32,7 @@ export class Game extends Scene
     this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000 );
 
     this.blunda = new Blunda(this, 270, 48);
+    this.huvud = new Huvud(this, 278, 46);
 
     // this.input.once('pointerdown', () => {
     //   this.scene.start('GameOver');
