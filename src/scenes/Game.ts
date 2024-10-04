@@ -1,11 +1,13 @@
 import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
 import { logWithTime } from '../logWithTime';
+import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
 import { Huvud } from '../containers/Huvud';
 
 export class Game extends Scene
 {
+  arm: Arm;
   background: GameObjects.Image;
   blunda: Blunda;
   huvud: Huvud;
@@ -30,6 +32,7 @@ export class Game extends Scene
 
     this.blunda = new Blunda(this, 270, 48);
     this.huvud = new Huvud(this, 278, 46);
+    this.arm = new Arm(this, 184, 234);
 
     // this.input.once('pointerdown', () => {
     //   this.scene.start('GameOver');

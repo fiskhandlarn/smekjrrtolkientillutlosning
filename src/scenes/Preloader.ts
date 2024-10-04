@@ -35,6 +35,8 @@ export class Preloader extends Scene
     this.load.image('huvud_arg2', 'Graphics_20_huvud_arg2.png');
     this.load.image('introText', 'Graphics_70_rubriklager.png');
     this.load.image('tolkien', 'Graphics_22_tolkien.png');
+    this.load.image('tolkien_arm1', 'tolkien_arm1.png');
+    this.load.image('tolkien_arm2', 'tolkien_arm2.png');
 
     this.load.audio('intro', 'Sounds_4_peergynt.mp3');
   }
