@@ -1,8 +1,8 @@
 import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
 import { logWithTime } from '../logWithTime';
-import { Blunda } from '../sprites/Blunda';
-import { Huvud } from '../sprites/Huvud';
+import { Blunda } from '../containers/Blunda';
+import { Huvud } from '../containers/Huvud';
 
 export class Game extends Scene
 {
