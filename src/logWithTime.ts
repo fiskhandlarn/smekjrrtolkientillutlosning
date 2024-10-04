@@ -4,7 +4,6 @@ let startTime: integer;
 
 export function logWithTime(message: string) {
   if (!startTime) {
-    console.log('init startTime');
     startTime = Date.now();
   }
 
