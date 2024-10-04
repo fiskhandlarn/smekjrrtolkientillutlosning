@@ -1,20 +1,19 @@
 import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
+import { logWithTime } from '../logWithTime';
 
 export class MainMenu extends Scene
 {
   background: GameObjects.Image;
   introText: GameObjects.Image;
   overlay: GameObjects.Rectangle;
-  start: integer;
 
   constructor () {
     super('MainMenu');
   }
 
   create () {
-    this.start = Date.now();
-    this.logWithTime('create');
+    logWithTime('create');
 
     this.time.addEvent({
       delay: this.framesToMilliseconds(5),
@@ -25,7 +24,7 @@ export class MainMenu extends Scene
   }
 
   begin () {
-    this.logWithTime('begin');
+    logWithTime('begin');
 
     this.background = this.add.image(config.width / 2, config.height / 2, 'background');
 
@@ -53,7 +52,7 @@ export class MainMenu extends Scene
       delay: this.framesToMilliseconds(20-5),
       duration: this.framesToMilliseconds(49-20-5),
       onComplete: () => {
-        this.logWithTime('complete intro anim!');
+        logWithTime('complete intro anim!');
       }
     });
   }
@@ -62,12 +61,8 @@ export class MainMenu extends Scene
     return frames * (1000/config.fps.target);
   }
 
-  logWithTime(message: string) {
-    console.log(message, ((Date.now() - this.start) / config.fps.target));
-  }
-
   onCompleteMusic() {
-    this.logWithTime('complete music');
+    logWithTime('complete music');
 
     this.children.remove(this.introText);
 
@@ -80,7 +75,7 @@ export class MainMenu extends Scene
   }
 
   startGame() {
-    this.logWithTime('startGame');
+    logWithTime('startGame');
     this.scene.start('Game');
   }
 }
