@@ -1,35 +1,42 @@
-import { Scene } from 'phaser';
+import { Scene, GameObjects } from 'phaser';
+import { config } from '../main';
+import { logWithTime } from '../logWithTime';
+import { Blunda } from '../sprites/Blunda';
 
 export class Game extends Scene
 {
-    camera: Phaser.Cameras.Scene2D.Camera;
-    background: Phaser.GameObjects.Image;
-    msg_text : Phaser.GameObjects.Text;
+  background: GameObjects.Image;
+  introText: GameObjects.Image;
+  blunda: Blunda;
+  tolkien: GameObjects.Image;
+  pupillLeft: GameObjects.Rectangle;
+  pupillRight: GameObjects.Rectangle;
+  overlay: GameObjects.Rectangle;
 
-    constructor ()
-    {
-        super('Game');
-    }
+  constructor () {
+    super('Game');
+  }
 
-    create ()
-    {
-        this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
+  create() {
+    logWithTime('Game.create');
 
-        this.background = this.add.image(512, 384, 'background');
-        this.background.setAlpha(0.5);
+    this.background = this.add.image(config.width / 2, config.height / 2, 'background');
 
-        this.msg_text = this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        });
-        this.msg_text.setOrigin(0.5);
+    this.overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
+    this.overlay.alpha = 0.5;
 
-        this.input.once('pointerdown', () => {
+    this.tolkien = this.add.image(274+1, 205, 'tolkien');
+    this.pupillLeft = this.add.rectangle(263, 51, 2, 2, 0X000000 );
+    this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000 );
 
-            this.scene.start('GameOver');
+    this.blunda = new Blunda(this, 270, 48);
 
-        });
-    }
+    // this.input.once('pointerdown', () => {
+    //   this.scene.start('GameOver');
+    // });
+  }
+
+  update() {
+    this.blunda.update();
+  }
 }

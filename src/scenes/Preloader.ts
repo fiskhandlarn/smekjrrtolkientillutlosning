@@ -33,7 +33,9 @@ export class Preloader extends Scene
     this.load.setPath('assets');
 
     this.load.image('background', 'Graphics_2_bg.png');
+    this.load.image('blunda', 'Graphics_16_blunda.png');
     this.load.image('introText', 'Graphics_70_rubriklager.png');
+    this.load.image('tolkien', 'Graphics_22_tolkien.png');
 
     this.load.audio('intro', 'Sounds_4_peergynt.mp3');
   }
@@ -46,8 +48,6 @@ export class Preloader extends Scene
     const text = this.add.text(0, 0, 'START (todo replace me with gfx)', { font: '16px Courier', fill: '#00ff00' });
     text.setInteractive();
     text.once('pointerdown', () => {
-      console.log('!');
-
       this.scene.start('MainMenu');
     });
   }
