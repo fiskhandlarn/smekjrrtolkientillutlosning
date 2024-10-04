@@ -7,13 +7,13 @@ import { Huvud } from '../sprites/Huvud';
 export class Game extends Scene
 {
   background: GameObjects.Image;
-  introText: GameObjects.Image;
   blunda: Blunda;
   huvud: Huvud;
-  tolkien: GameObjects.Image;
+  introText: GameObjects.Image;
+  overlay: GameObjects.Rectangle;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
-  overlay: GameObjects.Rectangle;
+  tolkien: GameObjects.Image;
 
   constructor () {
     super('Game');
