@@ -24,9 +24,6 @@ export class Game extends Scene
 
     this.background = this.add.image(config.width / 2, config.height / 2, 'background');
 
-    this.overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
-    this.overlay.alpha = 0.5;
-
     this.tolkien = this.add.image(274+1, 205, 'tolkien');
     this.pupillLeft = this.add.rectangle(263, 51, 2, 2, 0X000000 );
     this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000 );
@@ -37,6 +34,9 @@ export class Game extends Scene
     // this.input.once('pointerdown', () => {
     //   this.scene.start('GameOver');
     // });
+
+    this.overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
+    this.overlay.alpha = 0.5;
   }
 
   update() {
