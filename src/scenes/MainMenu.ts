@@ -1,5 +1,6 @@
 import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
+import { framesToMilliseconds } from '../framesToMilliseconds';
 import { logWithTime } from '../logWithTime';
 
 export class MainMenu extends Scene
@@ -16,7 +17,7 @@ export class MainMenu extends Scene
     logWithTime('create');
 
     this.time.addEvent({
-      delay: this.framesToMilliseconds(5),
+      delay: framesToMilliseconds(5),
       loop: false,
       callback: () => this.begin(),
       callbackScope: this,
@@ -49,16 +50,12 @@ export class MainMenu extends Scene
           ease: 'none',
         }
       },
-      delay: this.framesToMilliseconds(20-5),
-      duration: this.framesToMilliseconds(49-20-5),
+      delay: framesToMilliseconds(20-5),
+      duration: framesToMilliseconds(49-20-5),
       onComplete: () => {
         logWithTime('complete intro anim!');
       }
     });
-  }
-
-  framesToMilliseconds(frames: integer):integer {
-    return frames * (1000/config.fps.target);
   }
 
   onCompleteMusic() {
@@ -67,7 +64,7 @@ export class MainMenu extends Scene
     this.children.remove(this.introText);
 
     this.time.addEvent({
-      delay: this.framesToMilliseconds(3),
+      delay: framesToMilliseconds(3),
       loop: false,
       callback: () => this.startGame(),
       callbackScope: this,
