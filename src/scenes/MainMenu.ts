@@ -36,6 +36,7 @@ export class MainMenu extends Scene
 
     const music = this.sound.add('intro');
     music.play();
+    music.addListener('complete', () => this.onCompleteMusic());
 
     // this.input.once('pointerdown', () => {
     //   this.scene.start('Game');
@@ -63,5 +64,23 @@ export class MainMenu extends Scene
 
   logWithTime(message: string) {
     console.log(message, ((Date.now() - this.start) / config.fps.target));
+  }
+
+  onCompleteMusic() {
+    this.logWithTime('complete music');
+
+    this.children.remove(this.introText);
+
+    this.time.addEvent({
+      delay: this.framesToMilliseconds(3),
+      loop: false,
+      callback: () => this.startGame(),
+      callbackScope: this,
+    });
+  }
+
+  startGame() {
+    this.logWithTime('startGame');
+    this.scene.start('Game');
   }
 }
