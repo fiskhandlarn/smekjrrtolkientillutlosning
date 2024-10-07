@@ -1,5 +1,6 @@
 import { Scene, GameObjects } from 'phaser';
 import { config } from '../main';
+import { framesToMilliseconds } from '../framesToMilliseconds';
 import { logWithTime } from '../logWithTime';
 import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
@@ -10,6 +11,12 @@ export class Game extends Scene
   arm: Arm;
   background: GameObjects.Image;
   blunda: Blunda;
+  gramofon: GameObjects.Image;
+  kork: GameObjects.Image;
+  champagneFlaska: GameObjects.Image;
+  // : GameObjects.Image;
+  // : GameObjects.Image;
+  // : GameObjects.Image;
   huvud: Huvud;
   introText: GameObjects.Image;
   overlay: GameObjects.Rectangle;
@@ -24,11 +31,15 @@ export class Game extends Scene
   create() {
     logWithTime('Game.create');
 
+    this.scene1();
+  }
+
+  scene1() {
     this.background = this.add.image(config.width / 2, config.height / 2, 'background');
 
     this.tolkien = this.add.image(274+1, 205, 'tolkien');
-    this.pupillLeft = this.add.rectangle(263, 51, 2, 2, 0X000000 );
-    this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000 );
+    this.pupillLeft = this.add.rectangle(263, 51, 2, 2, 0X000000);
+    this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000);
 
     this.blunda = new Blunda(this, 270, 48);
     this.huvud = new Huvud(this, 278, 46);
@@ -40,6 +51,37 @@ export class Game extends Scene
 
     this.overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
     this.overlay.alpha = 0.5;
+    this.overlay.depth = 10;
+
+    this.time.addEvent({
+      delay: framesToMilliseconds(1),
+      loop: false,
+      callback: () => this.scene2(),
+      callbackScope: this,
+    });
+  }
+
+  scene2() {
+    logWithTime('scene2');
+    this.gramofon = this.add.image(457, 238, 'gramofon');
+
+    this.time.addEvent({
+      delay: framesToMilliseconds(1),
+      loop: false,
+      callback: () => this.scene3(),
+      callbackScope: this,
+    });
+  }
+
+  scene3() {
+    logWithTime('scene3');
+    this.kork = this.add.image(49, 247, 'kork');
+    this.champagneFlaska = this.add.image(48, 302, 'champagne_flaska');
+    // this. = this.add.image(, , '');
+    // this. = this.add.image(, , '');
+    // this. = this.add.image(, , '');
+    // this. = this.add.image(, , '');
+
   }
 
   update() {
