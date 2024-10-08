@@ -18,22 +18,22 @@ export class GramophoneButton extends GameObjects.Container
       this.toggle();
     });
 
-    this.updateState();
+    this.disable();
   }
 
   disable() {
     this.isActive = false;
-    this.updateState();
+    this.activeButton.visible = false;
+    this.inactiveButton.visible = true;
   }
 
   toggle() {
     this.isActive = !this.isActive;
-    this.updateState();
-    this.scene.events.emit('toggle', this);
-  }
 
-  updateState() {
-    this.activeButton.visible = this.isActive;
-    this.inactiveButton.visible = !this.isActive;
+    // keep showing active regardless of how many times this button is toggled
+    this.activeButton.visible = true;
+    this.inactiveButton.visible = false;
+
+    this.scene.events.emit('toggle', this);
   }
 }
