@@ -34,6 +34,8 @@ export class Preloader extends Scene
     this.load.image('gramofon', 'gramofon.png');
     this.load.image('kork', 'kork.png');
     this.load.image('champagne_flaska', 'champagne_flaska.png');
+    this.load.image('buttonActive', 'buttonActive.png');
+    this.load.image('buttonInActive', 'buttonInActive.png');
     // this.load.image('', '.png');
     // this.load.image('', '.png');
     this.load.image('huvud_arg', 'Graphics_18_huvud_arg.png');

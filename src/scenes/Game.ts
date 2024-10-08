@@ -5,6 +5,7 @@ import { logWithTime } from '../logWithTime';
 import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
 import { Huvud } from '../containers/Huvud';
+import { GramophoneButton } from '../containers/GramophoneButton';
 
 export class Game extends Scene
 {
@@ -18,6 +19,10 @@ export class Game extends Scene
   // : GameObjects.Image;
   // : GameObjects.Image;
   huvud: Huvud;
+  gramophoneButton1: GramophoneButton;
+  gramophoneButton2: GramophoneButton;
+  gramophoneButton3: GramophoneButton;
+  gramophoneButtons: array;
   introText: GameObjects.Image;
   overlay: GameObjects.Rectangle;
   pupillLeft: GameObjects.Rectangle;
@@ -32,6 +37,20 @@ export class Game extends Scene
     logWithTime('Game.create');
 
     this.scene1();
+  }
+
+  onToggleGramophoneButton(target) {
+    // TODO stop all sounds
+
+    if (target.isActive) {
+      this.gramophoneButtons.forEach((button) => {
+        if (button !== target) {
+          button.disable();
+        }
+      });
+
+      // TODO play the corresponding sound
+    }
   }
 
   scene1() {
@@ -77,11 +96,27 @@ export class Game extends Scene
     logWithTime('scene3');
     this.kork = this.add.image(49, 247, 'kork');
     this.champagneFlaska = this.add.image(48, 302, 'champagne_flaska');
+
+    this.gramophoneButton1 = new GramophoneButton(this, 453, 291);
+    this.gramophoneButton2 = new GramophoneButton(this, 469, 291);
+    this.gramophoneButton3 = new GramophoneButton(this, 485, 291);
+
+    this.gramophoneButtons = [
+      this.gramophoneButton1,
+      this.gramophoneButton2,
+      this.gramophoneButton3,
+    ];
+
+    // listen to all buttons
+    this.events.on('toggle', (target) => this.onToggleGramophoneButton(target));
+
     // this. = this.add.image(, , '');
     // this. = this.add.image(, , '');
     // this. = this.add.image(, , '');
     // this. = this.add.image(, , '');
 
+    // TODO remove instead
+    //this.overlay.depth = -1;
   }
 
   update() {
