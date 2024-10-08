@@ -15,7 +15,7 @@ export class GramophoneButton extends GameObjects.Container
     const hitarea = this.scene.add.zone(x, y, this.activeButton.width, this.activeButton.height);
     hitarea.setInteractive();
     hitarea.on('pointerdown', () => {
-      this.toggle();
+      this.enable();
     });
 
     this.disable();
@@ -27,8 +27,8 @@ export class GramophoneButton extends GameObjects.Container
     this.inactiveButton.visible = true;
   }
 
-  toggle() {
-    this.isActive = !this.isActive;
+  enable() {
+    this.isActive = true;
 
     // keep showing active regardless of how many times this button is toggled
     this.activeButton.visible = true;

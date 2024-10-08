@@ -23,6 +23,8 @@ export class Game extends Scene
   gramophoneButton2: GramophoneButton;
   gramophoneButton3: GramophoneButton;
   gramophoneButtons: array;
+  gramophoneSounds: array;
+  gramophoneSoundListeners: array = [];
   introText: GameObjects.Image;
   overlay: GameObjects.Rectangle;
   pupillLeft: GameObjects.Rectangle;
@@ -31,25 +33,46 @@ export class Game extends Scene
 
   constructor () {
     super('Game');
+
+
   }
 
   create() {
     logWithTime('Game.create');
 
+    this.gramophoneSounds = [
+      this.sound.add('sound1'),
+      this.sound.add('sound2'),
+      this.sound.add('sound3'),
+    ];
+
     this.scene1();
   }
 
+  onCompleteGramophoneSound(key) {
+    //console.log('onCompleteGramophoneSound', key);
+    this.gramophoneSounds[key].removeAllListeners('complete');
+
+    // TODO stop notes animation
+  }
+
   onToggleGramophoneButton(target) {
-    // TODO stop all sounds
+    this.gramophoneSounds.forEach((sound) => {
+      sound.stop();
+      sound.removeAllListeners('complete');
+    });
+
+    // TODO begin notes animation
 
     if (target.isActive) {
-      this.gramophoneButtons.forEach((button) => {
-        if (button !== target) {
+      this.gramophoneButtons.forEach((button, key) => {
+        if (button === target) {
+          this.gramophoneSounds[key].play();
+          this.gramophoneSoundListeners[key] = this.gramophoneSounds[key].addListener('complete', () => this.onCompleteGramophoneSound(key));
+        } else {
           button.disable();
         }
       });
-
-      // TODO play the corresponding sound
     }
   }
 
@@ -107,6 +130,8 @@ export class Game extends Scene
       this.gramophoneButton3,
     ];
 
+    // TODO don't make buttons interactive until intro is over
+
     // listen to all buttons
     this.events.on('toggle', (target) => this.onToggleGramophoneButton(target));
 
@@ -115,8 +140,18 @@ export class Game extends Scene
     // this. = this.add.image(, , '');
     // this. = this.add.image(, , '');
 
+    this.time.addEvent({
+      delay: framesToMilliseconds(5), // TODO
+      loop: false,
+      callback: () => this.scene4(),
+      callbackScope: this,
+    });
     // TODO remove instead
     //this.overlay.depth = -1;
+  }
+
+  scene4() {
+    this.overlay.destroy();
   }
 
   update() {
