@@ -50,7 +50,7 @@ export class Preloader extends Scene
     this.load.image('tolkien_arm2', 'tolkien_arm2.png');
 
     //    this.load.audio('intro', 'Sounds_4_peergynt.mp3');
-    this.load.audio('intro', 'Sounds_6_scratchet.mp3');
+    this.load.audio('intro', 'peergynt.mp3');
     this.load.audio('sound1', 'sound1.mp3');
     this.load.audio('sound2', 'sound2.mp3');
     this.load.audio('sound3', 'sound3.mp3');
