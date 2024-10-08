@@ -29,18 +29,22 @@ export class Preloader extends Scene
     //  Load the assets for the game - Replace with your own assets
     this.load.setPath('assets');
 
+    // this.load.image('', '.png');
+    // this.load.image('', '.png');
     this.load.image('background', 'Graphics_2_bg.png');
     this.load.image('blunda', 'Graphics_16_blunda.png');
-    this.load.image('gramofon', 'gramofon.png');
-    this.load.image('kork', 'kork.png');
-    this.load.image('champagne_flaska', 'champagne_flaska.png');
     this.load.image('buttonActive', 'buttonActive.png');
     this.load.image('buttonInActive', 'buttonInActive.png');
-    // this.load.image('', '.png');
-    // this.load.image('', '.png');
+    this.load.image('champagne_flaska', 'champagne_flaska.png');
+    this.load.image('gram_mask2', 'gram_mask2.png');
+    this.load.image('gramofon', 'gramofon.png');
     this.load.image('huvud_arg', 'Graphics_18_huvud_arg.png');
     this.load.image('huvud_arg2', 'Graphics_20_huvud_arg2.png');
     this.load.image('introText', 'Graphics_70_rubriklager.png');
+    this.load.image('kork', 'kork.png');
+    this.load.image('not1', 'not1.png');
+    this.load.image('not2', 'not2.png');
+    this.load.image('not4', 'not4.png');
     this.load.image('tolkien', 'Graphics_22_tolkien.png');
     this.load.image('tolkien_arm1', 'tolkien_arm1.png');
     this.load.image('tolkien_arm2', 'tolkien_arm2.png');

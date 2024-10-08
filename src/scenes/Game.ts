@@ -6,13 +6,14 @@ import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
 import { Huvud } from '../containers/Huvud';
 import { GramophoneButton } from '../containers/GramophoneButton';
+import { Gramophone } from '../containers/Gramophone';
 
 export class Game extends Scene
 {
   arm: Arm;
   background: GameObjects.Image;
   blunda: Blunda;
-  gramofon: GameObjects.Image;
+  gramophone: Gramophone;
   kork: GameObjects.Image;
   champagneFlaska: GameObjects.Image;
   // : GameObjects.Image;
@@ -54,7 +55,7 @@ export class Game extends Scene
     //console.log('onCompleteGramophoneSound', key);
     this.gramophoneSounds[key].removeAllListeners('complete');
 
-    // TODO stop notes animation
+    this.gramophone.disable();
   }
 
   onToggleGramophoneButton(target) {
@@ -63,12 +64,13 @@ export class Game extends Scene
       sound.removeAllListeners('complete');
     });
 
-    // TODO begin notes animation
+    this.gramophone.enable();
 
     if (target.isActive) {
       this.gramophoneButtons.forEach((button, key) => {
         if (button === target) {
           this.gramophoneSounds[key].play();
+          // TODO: sound(8).volume = 96
           this.gramophoneSoundListeners[key] = this.gramophoneSounds[key].addListener('complete', () => this.onCompleteGramophoneSound(key));
         } else {
           button.disable();
@@ -111,7 +113,7 @@ export class Game extends Scene
 
   scene2() {
     logWithTime('scene2');
-    this.gramofon = this.add.image(457, 238, 'gramofon');
+    this.gramophone = new Gramophone(this, 457, 238);
 
     this.time.addEvent({
       delay: framesToMilliseconds(1),
@@ -123,6 +125,7 @@ export class Game extends Scene
 
   scene3() {
     logWithTime('scene3');
+
     this.kork = this.add.image(49, 247, 'kork');
     this.champagneFlaska = this.add.image(48, 302, 'champagne_flaska');
 
@@ -153,10 +156,13 @@ export class Game extends Scene
   }
 
   scene4() {
+    logWithTime('scene4');
+
     // remove overlay ...
     this.overlay.destroy();
     // ... and enable interaction
     this.overlayHitarea.destroy();
+    delete this.overlayHitarea;
 
     this.gramophoneButtons.forEach((button, key) => {
       button.setInteractive();
@@ -164,6 +170,12 @@ export class Game extends Scene
   }
 
   update() {
-    this.blunda.update();
+    if (this.blunda) {
+      this.blunda.update();
+    }
+
+    if (this.gramophone && !this.overlayHitarea) {
+      this.gramophone.update();
+    }
   }
 }
