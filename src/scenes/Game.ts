@@ -27,6 +27,7 @@ export class Game extends Scene
   gramophoneSoundListeners: array = [];
   introText: GameObjects.Image;
   overlay: GameObjects.Rectangle;
+  overlayHitarea: GameObjects.Zone;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
   tolkien: GameObjects.Image;
@@ -95,6 +96,11 @@ export class Game extends Scene
     this.overlay.alpha = 0.5;
     this.overlay.depth = 10;
 
+    // block all interactions
+    this.overlayHitarea = this.add.zone(config.width / 2, config.height / 2, config.width, config.height);
+    this.overlayHitarea.setInteractive();
+    this.overlayHitarea.depth = 20;
+
     this.time.addEvent({
       delay: framesToMilliseconds(1),
       loop: false,
@@ -130,8 +136,6 @@ export class Game extends Scene
       this.gramophoneButton3,
     ];
 
-    // TODO don't make buttons interactive until intro is over
-
     // listen to all buttons
     this.events.on('toggle', (target) => this.onToggleGramophoneButton(target));
 
@@ -146,12 +150,17 @@ export class Game extends Scene
       callback: () => this.scene4(),
       callbackScope: this,
     });
-    // TODO remove instead
-    //this.overlay.depth = -1;
   }
 
   scene4() {
+    // remove overlay ...
     this.overlay.destroy();
+    // ... and enable interaction
+    this.overlayHitarea.destroy();
+
+    this.gramophoneButtons.forEach((button, key) => {
+      button.setInteractive();
+    });
   }
 
   update() {
