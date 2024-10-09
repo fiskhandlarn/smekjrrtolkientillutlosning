@@ -39,6 +39,17 @@ export class Game extends Scene
     super('Game');
   }
 
+  advance(nrFrames: integer, scene: () => void) {
+    console.log(scene);
+
+    this.time.addEvent({
+      delay: framesToMilliseconds(nrFrames),
+      loop: false,
+      callback: scene,
+      callbackScope: this,
+    });
+  }
+
   create() {
     logWithTime('Game.create');
 
@@ -106,24 +117,14 @@ export class Game extends Scene
     this.overlayHitarea.setInteractive();
     this.overlayHitarea.depth = 242;
 
-    this.time.addEvent({
-      delay: framesToMilliseconds(1),
-      loop: false,
-      callback: () => this.scene2(),
-      callbackScope: this,
-    });
+    this.advance(1, this.scene2);
   }
 
   scene2() {
     logWithTime('scene2');
     this.gramophone = new Gramophone(this, 457, 238);
 
-    this.time.addEvent({
-      delay: framesToMilliseconds(1),
-      loop: false,
-      callback: () => this.scene3(),
-      callbackScope: this,
-    });
+    this.advance(1, this.scene3);
   }
 
   scene3() {
@@ -149,41 +150,22 @@ export class Game extends Scene
     this.meters.excitement(0.0625);
     this.meters.time(.68);
 
-    // this. = this.add.image(, , '');
-    // this. = this.add.image(, , '');
-    // this. = this.add.image(, , '');
-    // this. = this.add.image(, , '');
-
-    this.time.addEvent({
-      delay: framesToMilliseconds(1),
-      loop: false,
-      callback: () => this.scene4(),
-      callbackScope: this,
-    });
+    this.advance(1, this.scene4);
   }
 
   scene4() {
     logWithTime('scene4');
     this.candle1 = new Candle(this, 85, 358, 'a');
 
-    this.time.addEvent({
-      delay: framesToMilliseconds(1),
-      loop: false,
-      callback: () => this.scene5(),
-      callbackScope: this,
-    });
+    this.advance(1, this.scene5);
   }
 
   scene5() {
     logWithTime('scene5');
     this.candle2 = new Candle(this, 481, 353, 'b');
 
-    this.time.addEvent({
-      delay: framesToMilliseconds(5), // TODO
-      loop: false,
-      callback: () => this.scene242(),
-      callbackScope: this,
-    });
+    // TODO set delay
+    this.advance(5, this.scene242);
   }
 
   scene242() { // TODO final nr
