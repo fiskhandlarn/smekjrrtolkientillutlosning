@@ -167,6 +167,18 @@ export class Game extends Scene
     this.candle1 = new Candle(this, 85, 358, 'a');
 
     this.time.addEvent({
+      delay: framesToMilliseconds(1),
+      loop: false,
+      callback: () => this.scene5(),
+      callbackScope: this,
+    });
+  }
+
+  scene5() {
+    logWithTime('scene5');
+    this.candle2 = new Candle(this, 481, 353, 'b');
+
+    this.time.addEvent({
       delay: framesToMilliseconds(5), // TODO
       loop: false,
       callback: () => this.scene242(),
@@ -183,7 +195,9 @@ export class Game extends Scene
     this.overlayHitarea.destroy();
     delete this.overlayHitarea;
 
+    // TODO is this needed if the scene is reset?
     this.candle1.reset();
+    this.candle2.reset();
   }
 
   update() {
