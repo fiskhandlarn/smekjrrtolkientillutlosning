@@ -30,7 +30,6 @@ export class Preloader extends Scene
     this.load.setPath('assets');
 
     // this.load.image('', '.png');
-    // this.load.image('', '.png');
     this.load.image('background', 'Graphics_2_bg.png');
     this.load.image('blunda', 'Graphics_16_blunda.png');
     this.load.image('buttonActive', 'buttonActive.png');
@@ -41,12 +40,15 @@ export class Preloader extends Scene
     this.load.image('controllers_tidfyllnad', 'controllers_tidfyllnad.png');
     this.load.image('controllers_upphetsningfyll', 'controllers_upphetsningfyll.png');
     this.load.image('corners', 'corners.png');
+    this.load.image('fire1', 'fire1.png');
+    this.load.image('fire2', 'fire2.png');
     this.load.image('gram_mask2', 'gram_mask2.png');
     this.load.image('gramofon', 'gramofon.png');
     this.load.image('huvud_arg', 'Graphics_18_huvud_arg.png');
     this.load.image('huvud_arg2', 'Graphics_20_huvud_arg2.png');
     this.load.image('introText', 'Graphics_70_rubriklager.png');
     this.load.image('kork', 'kork.png');
+    this.load.image('ljus_a', 'ljus_a.png');
     this.load.image('not1', 'not1.png');
     this.load.image('not2', 'not2.png');
     this.load.image('not4', 'not4.png');

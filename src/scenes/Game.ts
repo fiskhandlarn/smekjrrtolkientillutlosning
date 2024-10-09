@@ -4,6 +4,7 @@ import { framesToMilliseconds } from '../framesToMilliseconds';
 import { logWithTime } from '../logWithTime';
 import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
+import { Candle } from '../containers/Candle';
 import { Gramophone } from '../containers/Gramophone';
 import { GramophoneButton } from '../containers/GramophoneButton';
 import { Huvud } from '../containers/Huvud';
@@ -13,6 +14,8 @@ export class Game extends Scene
 {
   arm: Arm;
   blunda: Blunda;
+  candle1: Candle;
+  candle2: Candle;
   gramophone: Gramophone;
   kork: GameObjects.Image;
   champagneFlaska: GameObjects.Image;
@@ -154,7 +157,7 @@ export class Game extends Scene
     // this. = this.add.image(, , '');
 
     this.time.addEvent({
-      delay: framesToMilliseconds(5), // TODO
+      delay: framesToMilliseconds(1),
       loop: false,
       callback: () => this.scene4(),
       callbackScope: this,
@@ -162,6 +165,17 @@ export class Game extends Scene
   }
 
   scene4() {
+    this.candle1 = new Candle(this, 85, 358, 'a');
+
+    this.time.addEvent({
+      delay: framesToMilliseconds(5), // TODO
+      loop: false,
+      callback: () => this.scene242(),
+      callbackScope: this,
+    });
+  }
+
+  scene242() { // TODO final nr
     logWithTime('scene4');
 
     // remove overlay ...
@@ -170,9 +184,7 @@ export class Game extends Scene
     this.overlayHitarea.destroy();
     delete this.overlayHitarea;
 
-    this.gramophoneButtons.forEach((button, key) => {
-      button.setInteractive();
-    });
+    this.candle1.reset();
   }
 
   update() {
@@ -180,8 +192,18 @@ export class Game extends Scene
       this.blunda.update();
     }
 
-    if (this.gramophone && !this.overlayHitarea) {
-      this.gramophone.update();
+    if (!this.overlayHitarea) {
+      if (this.gramophone) {
+        this.gramophone.update();
+      }
+
+      if (this.candle1) {
+        this.candle1.update();
+      }
+
+      if (this.candle2) {
+        this.candle2.update();
+      }
     }
   }
 }
