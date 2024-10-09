@@ -9,6 +9,7 @@ import { Gramophone } from '../containers/Gramophone';
 import { GramophoneButton } from '../containers/GramophoneButton';
 import { Huvud } from '../containers/Huvud';
 import { Meters } from '../containers/Meters';
+import { Popper } from '../containers/Popper';
 
 export class Game extends Scene
 {
@@ -16,22 +17,20 @@ export class Game extends Scene
   blunda: Blunda;
   candle1: Candle;
   candle2: Candle;
-  gramophone: Gramophone;
-  kork: GameObjects.Image;
   champagneFlaska: GameObjects.Image;
-  // : GameObjects.Image;
-  // : GameObjects.Image;
-  // : GameObjects.Image;
-  huvud: Huvud;
+  gramophone: Gramophone;
   gramophoneButton1: GramophoneButton;
   gramophoneButton2: GramophoneButton;
   gramophoneButton3: GramophoneButton;
   gramophoneButtons: array;
-  gramophoneSounds: array;
   gramophoneSoundListeners: array = [];
+  gramophoneSounds: array;
+  huvud: Huvud;
   introText: GameObjects.Image;
+  kork: GameObjects.Image;
   overlay: GameObjects.Rectangle;
   overlayHitarea: GameObjects.Zone;
+  popper: Popper;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
 
@@ -91,6 +90,8 @@ export class Game extends Scene
   }
 
   scene1() {
+    logWithTime('scene1');
+
     this.add.image(config.width / 2, config.height / 2, 'background');
 
     this.add.image(274+1, 205, 'tolkien');
@@ -122,6 +123,7 @@ export class Game extends Scene
 
   scene2() {
     logWithTime('scene2');
+
     this.gramophone = new Gramophone(this, 457, 238);
 
     this.advance(1, this.scene3);
@@ -155,6 +157,7 @@ export class Game extends Scene
 
   scene4() {
     logWithTime('scene4');
+
     this.candle1 = new Candle(this, 85, 358, 'a');
 
     this.advance(1, this.scene5);
@@ -162,7 +165,16 @@ export class Game extends Scene
 
   scene5() {
     logWithTime('scene5');
+
     this.candle2 = new Candle(this, 481, 353, 'b');
+
+    this.advance(1, this.scene6);
+  }
+
+  scene6() {
+    logWithTime('scene6');
+
+    this.popper = new Popper(this, 406, 299);
 
     // TODO set delay
     this.advance(5, this.scene242);
