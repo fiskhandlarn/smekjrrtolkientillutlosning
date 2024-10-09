@@ -7,5 +7,6 @@ export function logWithTime(message: string) {
     startTime = Date.now();
   }
 
-  console.log(message, ((Date.now() - startTime) / config.fps.target));
+  const frame = ((Date.now() - startTime) / config.fps.target);
+  console.log(message, Math.round(frame), '(' + frame + ')');
 };
