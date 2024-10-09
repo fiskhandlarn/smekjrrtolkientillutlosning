@@ -37,8 +37,6 @@ export class Game extends Scene
 
   constructor () {
     super('Game');
-
-
   }
 
   create() {
@@ -165,6 +163,7 @@ export class Game extends Scene
   }
 
   scene4() {
+    logWithTime('scene4');
     this.candle1 = new Candle(this, 85, 358, 'a');
 
     this.time.addEvent({
@@ -176,7 +175,7 @@ export class Game extends Scene
   }
 
   scene242() { // TODO final nr
-    logWithTime('scene4');
+    logWithTime('scene242');
 
     // remove overlay ...
     this.overlay.destroy();
