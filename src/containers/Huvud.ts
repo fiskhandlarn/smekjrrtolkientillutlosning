@@ -23,7 +23,7 @@ export class Huvud extends GameObjects.Container
     this.setState(this.STATE_HAPPY2);
 
     // TODO remove this
-    const text = this.scene.add.text(0, 0, 'toggle mood', { font: '16px Courier', fill: '#00ff00' });
+    const text = this.scene.add.text(x - 100, y - 30, 'toggle mood', { font: '16px Courier', fill: '#00ff00' });
     text.setInteractive();
     text.on('pointerdown', () => {
       this.toggle();
