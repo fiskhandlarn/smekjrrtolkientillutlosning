@@ -4,9 +4,10 @@ import { framesToMilliseconds } from '../framesToMilliseconds';
 import { logWithTime } from '../logWithTime';
 import { Arm } from '../containers/Arm';
 import { Blunda } from '../containers/Blunda';
-import { Huvud } from '../containers/Huvud';
-import { GramophoneButton } from '../containers/GramophoneButton';
 import { Gramophone } from '../containers/Gramophone';
+import { GramophoneButton } from '../containers/GramophoneButton';
+import { Huvud } from '../containers/Huvud';
+import { Meters } from '../containers/Meters';
 
 export class Game extends Scene
 {
@@ -142,6 +143,10 @@ export class Game extends Scene
 
     // listen to all buttons
     this.events.on('toggle', (target) => this.onToggleGramophoneButton(target));
+
+    this.meters = new Meters(this, 79, 39);
+    this.meters.excitement(0.0625);
+    this.meters.time(.68);
 
     // this. = this.add.image(, , '');
     // this. = this.add.image(, , '');
