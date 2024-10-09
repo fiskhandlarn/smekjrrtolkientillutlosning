@@ -11,7 +11,6 @@ import { Gramophone } from '../containers/Gramophone';
 export class Game extends Scene
 {
   arm: Arm;
-  background: GameObjects.Image;
   blunda: Blunda;
   gramophone: Gramophone;
   kork: GameObjects.Image;
@@ -31,7 +30,6 @@ export class Game extends Scene
   overlayHitarea: GameObjects.Zone;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
-  tolkien: GameObjects.Image;
 
   constructor () {
     super('Game');
@@ -80,9 +78,9 @@ export class Game extends Scene
   }
 
   scene1() {
-    this.background = this.add.image(config.width / 2, config.height / 2, 'background');
+    this.add.image(config.width / 2, config.height / 2, 'background');
 
-    this.tolkien = this.add.image(274+1, 205, 'tolkien');
+    this.add.image(274+1, 205, 'tolkien');
     this.pupillLeft = this.add.rectangle(263, 51, 2, 2, 0X000000);
     this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000);
 

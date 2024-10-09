@@ -5,9 +5,7 @@ import { logWithTime } from '../logWithTime';
 
 export class MainMenu extends Scene
 {
-  background: GameObjects.Image;
   introText: GameObjects.Image;
-  overlay: GameObjects.Rectangle;
 
   constructor () {
     super('MainMenu');
@@ -27,10 +25,10 @@ export class MainMenu extends Scene
   begin () {
     logWithTime('begin');
 
-    this.background = this.add.image(config.width / 2, config.height / 2, 'background');
+    this.add.image(config.width / 2, config.height / 2, 'background');
 
-    this.overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
-    this.overlay.alpha = 0.5;
+    const overlay = this.add.rectangle(config.width / 2, config.height / 2, config.width, config.height, 0X000000 );
+    overlay.alpha = 0.5;
 
     this.introText = this.add.image(config.width / 2 + 5, config.height / 2 - 9 - 311, 'introText');
 
