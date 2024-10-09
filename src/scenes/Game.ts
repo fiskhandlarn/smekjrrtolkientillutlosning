@@ -39,8 +39,6 @@ export class Game extends Scene
   }
 
   advance(nrFrames: integer, scene: () => void) {
-    console.log(scene);
-
     this.time.addEvent({
       delay: framesToMilliseconds(nrFrames),
       loop: false,
