@@ -98,10 +98,13 @@ export class Game extends Scene
     this.overlay.alpha = 0.5;
     this.overlay.depth = 10;
 
+    const corners = this.add.image(config.width / 2, config.height / 2, 'corners');
+    corners.depth = 20;
+
     // block all interactions
     this.overlayHitarea = this.add.zone(config.width / 2, config.height / 2, config.width, config.height);
     this.overlayHitarea.setInteractive();
-    this.overlayHitarea.depth = 20;
+    this.overlayHitarea.depth = 242;
 
     this.time.addEvent({
       delay: framesToMilliseconds(1),

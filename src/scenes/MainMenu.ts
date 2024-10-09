@@ -34,6 +34,8 @@ export class MainMenu extends Scene
 
     this.introText = this.add.image(config.width / 2 + 5, config.height / 2 - 9 - 311, 'introText');
 
+    this.add.image(config.width / 2, config.height / 2, 'corners');
+
     const music = this.sound.add('intro');
     music.play();
     music.addListener('complete', () => this.onCompleteMusic());

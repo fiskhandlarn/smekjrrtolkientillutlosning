@@ -34,6 +34,7 @@ export class Preloader extends Scene
     this.load.image('background', 'Graphics_2_bg.png');
     this.load.image('blunda', 'Graphics_16_blunda.png');
     this.load.image('buttonActive', 'buttonActive.png');
+    this.load.image('corners', 'corners.png');
     this.load.image('buttonInActive', 'buttonInActive.png');
     this.load.image('champagne_flaska', 'champagne_flaska.png');
     this.load.image('gram_mask2', 'gram_mask2.png');
