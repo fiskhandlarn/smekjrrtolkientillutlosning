@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node esbuild/build.prod.mjs",
-    "dev": "node esbuild/dev.server.mjs -w",
+    "dev": "node esbuild/dev.server.mjs -w"
   },
   "author": {
     "url": "https://github.com/fiskhandlarn"
