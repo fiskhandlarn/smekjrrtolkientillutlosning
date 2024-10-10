@@ -18,7 +18,7 @@
     "url": "https://github.com/fiskhandlarn/smekjrrtolkientillutlosning/issues"
   },
   "homepage": "https://github.com/fiskhandlarn/smekjrrtolkientillutlosning#readme",
-  "license": "GPL-3.0-or-later",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "phaser": "^3.85.2"
   },
