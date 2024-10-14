@@ -1,4 +1,4 @@
-import { config } from './main';
+import { FPS } from './main';
 
 let startTime: integer;
 
@@ -7,6 +7,6 @@ export function logWithTime(message: string) {
     startTime = Date.now();
   }
 
-  const frame = ((Date.now() - startTime) / config.fps.target);
+  const frame = ((Date.now() - startTime) / FPS);
   console.log(message, Math.round(frame), '(' + frame + ')');
 };
