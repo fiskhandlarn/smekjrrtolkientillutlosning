@@ -209,6 +209,10 @@ export class Game extends Scene
       if (this.candle2) {
         this.candle2.update();
       }
+
+      if (this.popper) {
+        this.popper.update();
+      }
     }
   }
 }
