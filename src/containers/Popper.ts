@@ -1,4 +1,4 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 export class Popper extends GameObjects.Container
 {
@@ -15,7 +15,7 @@ export class Popper extends GameObjects.Container
   playPoppersAnimCount: number = 0;
   popper: GameObjects.Image;
 
-  constructor(scene, x, y, children) {
+  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.originX = x;

@@ -1,11 +1,11 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 export class Arm extends GameObjects.Container
 {
   arm1: GameObjects.Image;
   arm2: GameObjects.Image;
 
-  constructor(scene, x, y, children) {
+  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.arm1 = this.scene.add.image(x, y, 'tolkien_arm1');

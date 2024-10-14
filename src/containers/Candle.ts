@@ -1,4 +1,4 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 export class Candle extends GameObjects.Container
 {
@@ -8,7 +8,7 @@ export class Candle extends GameObjects.Container
   isActive: boolean = false;
   counter: integer = 0;
 
-  constructor(scene, x, y, candleType, children) {
+  constructor(scene: Scene, x: number, y: number, candleType: string, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.candle = this.scene.add.image(x, y, 'ljus_' + candleType);

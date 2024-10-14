@@ -1,4 +1,4 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 export class GramophoneButton extends GameObjects.Container
 {
@@ -6,7 +6,7 @@ export class GramophoneButton extends GameObjects.Container
   inactiveButton: GameObjects.Image;
   isActive: boolean = false;
 
-  constructor(scene, x, y, children) {
+  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.activeButton = this.scene.add.image(x, y, 'buttonActive');

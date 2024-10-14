@@ -1,11 +1,11 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 export class Blunda extends GameObjects.Container
 {
   image: GameObjects.Image;
   step: integer = 1;
 
-  constructor(scene, x, y, children) {
+  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.image = this.scene.add.image(x, y, 'blunda');

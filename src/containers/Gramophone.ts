@@ -1,4 +1,4 @@
-import { GameObjects } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 
 const START_Y_VALUE = -100;
 
@@ -14,7 +14,7 @@ export class Gramophone extends GameObjects.Container
   noteCounters: array = [0, 0, 0];
   noteYBreakpoints: array = [START_Y_VALUE, -200, -300];
 
-  constructor(scene, x, y, children) {
+  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.gramofon = this.scene.add.image(x, y, 'gramofon');
