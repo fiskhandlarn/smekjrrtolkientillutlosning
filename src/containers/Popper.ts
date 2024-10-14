@@ -89,24 +89,25 @@ export class Popper extends GameObjects.Container
       this.popper.y = ((1 - percent) * this.backPlacefromY) + (percent * this.originY);
       this.backPlaceCount++;
 
-      console.log(
-        'update moving back',
-        percent,
-        this.backPlaceMoving,
-        this.playPoppersAnim,
-        this.poppersState,
-        this.backPlacefromX,
-        this.backPlacefromY,
-        this.backPlaceCount,
-      );
+      // console.log(
+      //   'update moving back',
+      //   percent,
+      //   this.backPlaceMoving,
+      //   this.playPoppersAnim,
+      //   this.poppersState,
+      //   this.backPlacefromX,
+      //   this.backPlacefromY,
+      //   this.backPlaceCount,
+      // );
     }
 
-    if (this.backPlaceCount > 9) {
+    if (this.backPlaceMoving && this.backPlaceCount > 9) {
       this.backPlaceMoving = false;
-      console.log(
-        'update: stop moving back',
-        this.backPlaceCount,
-      );
+
+      // console.log(
+      //   'update: stop moving back',
+      //   this.backPlaceCount,
+      // );
     }
 
     if (this.playPoppersAnim) {
