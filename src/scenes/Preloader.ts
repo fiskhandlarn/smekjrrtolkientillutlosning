@@ -85,8 +85,5 @@ export class Preloader extends Scene
     text.once('pointerdown', () => {
       this.scene.start('MainMenu');
     });
-
-    //this.scene.start("MainMenu");
-    this.scene.start("Game");
   }
 }
