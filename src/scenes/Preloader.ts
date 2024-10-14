@@ -50,10 +50,15 @@ export class Preloader extends Scene
     this.load.image('kork', 'kork.png');
     this.load.image('ljus_a', 'ljus_a.png');
     this.load.image('ljus_b', 'ljus_b.png');
-    this.load.image('poppers', 'poppers.png');
     this.load.image('not1', 'not1.png');
     this.load.image('not2', 'not2.png');
     this.load.image('not4', 'not4.png');
+    this.load.image('popperanim1', 'popperanim1.png');
+    this.load.image('popperanim2', 'popperanim2.png');
+    this.load.image('popperanim3', 'popperanim3.png');
+    this.load.image('popperanim4', 'popperanim4.png');
+    this.load.image('popperanim5', 'popperanim5.png');
+    this.load.image('poppers', 'poppers.png');
     this.load.image('tolkien', 'Graphics_22_tolkien.png');
     this.load.image('tolkien_arm1', 'tolkien_arm1.png');
     this.load.image('tolkien_arm2', 'tolkien_arm2.png');

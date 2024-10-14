@@ -4,6 +4,8 @@ import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 
+const FPS = 25;
+
 import { Game, Types } from "phaser";
 
 //  Find out more information about the Game Config at:
@@ -20,8 +22,15 @@ export const config: Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   fps: {
-    target: 25,
+    target: FPS,
     forceSetTimeOut: true
+  },
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+      fps: FPS
+    }
   },
   scene: [
     Boot,

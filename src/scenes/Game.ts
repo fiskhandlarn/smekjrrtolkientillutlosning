@@ -174,6 +174,22 @@ export class Game extends Scene
 
     this.popper = new Popper(this, 406, 299);
 
+    const hitarea = this.add.tileSprite(270, 72, 32, 46, 'hitarea');
+    hitarea.visible = false;
+
+    this.physics.add.existing(this.popper.hitarea());
+    this.physics.add.existing(hitarea);
+
+    this.physics.add.overlap(this.popper.hitarea(), hitarea, () => {
+      this.popper.enable();
+
+      // TODO from Internal_16_poppersBehavior.ls:
+      // if (parentScript.readyToCome = 0) {
+      //   parentScript.excitementAction = 5
+      //   parentScript.doAction()
+      // }
+    });
+
     // TODO set delay
     this.advance(5, this.scene242);
   }

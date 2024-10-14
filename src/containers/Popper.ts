@@ -2,16 +2,18 @@ import { GameObjects } from 'phaser';
 
 export class Popper extends GameObjects.Container
 {
-  popper: GameObjects.Image;
-  originX: number;
-  originY: number;
+  backPlaceCount = 1;
   backPlacefromX: number;
   backPlacefromY: number;
   backPlaceMoving = false;
+  currentFrame: GameObjects.Image;
+  frames: Array<GameObjects.Image> = [];
+  isEnabled: boolean = false;
+  originX: number;
+  originY: number;
   playPoppersAnim = false;
-  poppersState = false;
-  backPlaceCount = 1;
   playPoppersAnimCount: number = 0;
+  popper: GameObjects.Image;
 
   constructor(scene, x, y, children) {
     super(scene, x, y, children);
@@ -21,43 +23,61 @@ export class Popper extends GameObjects.Container
 
     this.popper = this.scene.add.image(x, y, 'poppers');
     this.popper.setInteractive();
+    // this.popper.name = 'poppers'; // TODO tmp
 
-    this.scene.input.setDraggable(this.popper);
+    this.frames.push(this.popper);
 
-    this.scene.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+    [
+      'popperanim1',
+      'popperanim2',
+      'popperanim3',
+      'popperanim4',
+      'popperanim5',
+    ].forEach((texture) => {
+      const frame = this.scene.add.image(x, y, texture);
+      frame.visible = false;
+      // frame.name = texture; // TODO tmp
+      this.frames.push(frame);
+    });
+
+    this.scene.input.on('drag', (pointer?, gameObject?, dragX, dragY) => {
       gameObject.x = dragX;
       gameObject.y = dragY;
     });
 
     this.scene.input.on('dragstart', () => {
-      this.scene.input.setDefaultCursor("grabbing");
+      this.scene.input.setDefaultCursor('grabbing');
 
-      if (true /* TODO: parentScript.handPenisState = 0 */) {
-        /* TODO:
-        sprite(spriteNum).locZ = parentScript.spriteZ
-        parentScript.spriteZ = parentScript.spriteZ + 1
-         */
-        this.poppersState = true;
+      /* TODO:
+      if (parentScript.handPenisState = 0) {
+        sprite(spriteNum).locZ = parentScript.spriteZ // ???
+        parentScript.spriteZ = parentScript.spriteZ + 1 // ???
+        parentScript.poppersState = 1 // this only controls if the popper should follow the mouse in Internal_16_poppersBehavior.ls
       }
+       */
     });
 
     this.scene.input.on('dragend', () => {
-      this.scene.input.setDefaultCursor("grab");
+      this.scene.input.setDefaultCursor('grab');
 
       if (this.originX !== this.popper.x && this.originY !== this.popper.y) {
-        if (false /* TODO: sprite(spriteNum).intersects(parentScript.intersectSprite) */) {
-          // if (parentScript.readyToCome = 0) {
-          //   parentScript.excitementAction = 5
-          //   parentScript.doAction()
-          // }
-          // this.backPlaceMoving = false;
-          // parentScript.playPoppersAnim = 1
+        this.disableDrag();
+
+        if (this.isEnabled) {
+          this.backPlaceMoving = false;
+          this.playPoppersAnim = true;
+
+          // move all frames to current position
+          this.frames.slice(1).forEach((frame) => {
+            frame.x = this.popper.x;
+            frame.y = this.popper.y;
+          });
         } else {
           this.backPlaceMoving = true;
           this.playPoppersAnim = false;
         }
 
-        this.poppersState = false;
+        this.currentFrame = this.popper;
         this.backPlacefromX = this.popper.x;
         this.backPlacefromY = this.popper.y;
         this.backPlaceCount = 1;
@@ -65,21 +85,37 @@ export class Popper extends GameObjects.Container
       }
     });
 
+    this.enableDrag();
+  }
+
+  disableDrag() {
+    this.scene.input.setDefaultCursor('default');
+    this.popper.off('pointerover');
+    this.popper.off('pointerout');
+    this.scene.input.setDraggable(this.popper, false);
+  }
+
+  enable() {
+    // TODO disable drag handlers
+    // TODO play sound
+
+    this.isEnabled = true;
+  }
+
+  enableDrag() {
     this.popper.on('pointerover', () => {
-      this.scene.input.setDefaultCursor("grab");
+      this.scene.input.setDefaultCursor('grab');
     });
 
     this.popper.on('pointerout', () => {
-      this.scene.input.setDefaultCursor("default");
+      this.scene.input.setDefaultCursor('default');
     });
 
-    // TODO animation
+    this.scene.input.setDraggable(this.popper);
+  }
 
-    console.log((1 - Math.cos((1 * 10) / 100 * Math.PI)) / 2);
-    console.log((1 - Math.cos((10 * 10) / 100 * Math.PI)) / 2);
-    //(1 - Math.cos((9 * 10) / 100 * PI)) / 2;
-
-
+  hitarea() {
+    return this.popper;
   }
 
   update() {
@@ -94,7 +130,6 @@ export class Popper extends GameObjects.Container
       //   percent,
       //   this.backPlaceMoving,
       //   this.playPoppersAnim,
-      //   this.poppersState,
       //   this.backPlacefromX,
       //   this.backPlacefromY,
       //   this.backPlaceCount,
@@ -103,6 +138,7 @@ export class Popper extends GameObjects.Container
 
     if (this.backPlaceMoving && this.backPlaceCount > 9) {
       this.backPlaceMoving = false;
+      this.enableDrag();
 
       // console.log(
       //   'update: stop moving back',
@@ -111,41 +147,50 @@ export class Popper extends GameObjects.Container
     }
 
     if (this.playPoppersAnim) {
-      console.log(
-        'update play anim',
-        this.backPlaceMoving,
-        this.playPoppersAnim,
-        this.poppersState,
-        this.backPlacefromX,
-        this.backPlacefromY,
-        this.backPlaceCount,
-      );
+      // console.log(
+      //   'update play anim',
+      //   this.backPlaceMoving,
+      //   this.playPoppersAnim,
+      //   this.backPlacefromX,
+      //   this.backPlacefromY,
+      //   this.backPlaceCount,
+      //   this.playPoppersAnimCount,
+      // );
 
-      // switch (this.playPoppersAnimCount) {
-      // case 1:
-      //   sprite(spriteNum).member = "popperanim1"
-      //   break;
-      // case 2:
-      //   sprite(spriteNum).member = "popperanim2"
-      //   break;
-      // case 3:
-      //   sprite(spriteNum).member = "popperanim3"
-      //   break;
-      // case 4:
-      //   sprite(spriteNum).member = "popperanim4"
-      //   break;
-      // case 5:
-      //   sprite(spriteNum).member = "popperanim5"
-      //   break;
-      // }
+      /*
+      this will make the animation play like this ¯\_(ツ)_/¯
+      frame  0: poppers
+      frame  1: poppers
+      frame  2: popperanim1
+      frame  3: popperanim1
+      frame  4: popperanim2
+      frame  5: popperanim2
+      frame  6: popperanim3
+      frame  7: popperanim3
+      frame  8: popperanim4
+      frame  9: popperanim4
+      frame 10: popperanim5
+      frame 11: poppers
+       */
 
-      // if (this.playPoppersAnimCount > 5) {
-      //   sprite(spriteNum).member = "poppers"
-      //   this.backPlaceMoving = true;
-      //   this.playPoppersAnim = false;
-      //   this.playPoppersAnimCount = 0;
-      // }
-      this.playPoppersAnimCount = this.playPoppersAnimCount + 0.5
+      if (this.frames[this.playPoppersAnimCount]) {
+        this.currentFrame = this.frames[this.playPoppersAnimCount];
+      }
+
+      if (this.playPoppersAnimCount > 5) {
+        this.currentFrame = this.popper;
+
+        this.backPlaceMoving = true;
+        this.playPoppersAnim = false;
+      }
+
+      // console.log('frame', (this.playPoppersAnimCount*2) + ':', this.currentFrame.name);
+
+      this.frames.forEach((frame) => {
+        frame.visible = (frame === this.currentFrame);
+      });
+
+      this.playPoppersAnimCount = this.playPoppersAnimCount + 0.5;
     }
   }
 }
