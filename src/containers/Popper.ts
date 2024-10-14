@@ -1,4 +1,4 @@
-import { GameObjects, Scene } from 'phaser';
+import { GameObjects, Scene, Sound } from 'phaser';
 
 export class Popper extends GameObjects.Container
 {
@@ -14,6 +14,7 @@ export class Popper extends GameObjects.Container
   playPoppersAnim = false;
   playPoppersAnimCount: number = 0;
   popper: GameObjects.Image;
+  sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
   constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
@@ -24,7 +25,6 @@ export class Popper extends GameObjects.Container
     this.popper = this.scene.add.image(x, y, 'poppers');
     this.popper.setInteractive();
     // this.popper.name = 'poppers'; // TODO tmp
-
     this.frames.push(this.popper);
 
     [
@@ -39,6 +39,8 @@ export class Popper extends GameObjects.Container
       // frame.name = texture; // TODO tmp
       this.frames.push(frame);
     });
+
+    this.sound = this.scene.sound.add('popper');
 
     this.scene.input.on('drag', (pointer?, gameObject?, dragX, dragY) => {
       gameObject.x = dragX;
@@ -64,6 +66,8 @@ export class Popper extends GameObjects.Container
         this.disableDrag();
 
         if (this.isEnabled) {
+          this.sound.play();
+
           this.backPlaceMoving = false;
           this.playPoppersAnim = true;
 
@@ -96,9 +100,6 @@ export class Popper extends GameObjects.Container
   }
 
   enable() {
-    // TODO disable drag handlers
-    // TODO play sound
-
     this.isEnabled = true;
   }
 
