@@ -7,6 +7,7 @@ import { Blunda } from '../containers/Blunda';
 import { Candle } from '../containers/Candle';
 import { Gramophone } from '../containers/Gramophone';
 import { GramophoneButton } from '../containers/GramophoneButton';
+import { Hitarea } from '../containers/Hitarea';
 import { Huvud } from '../containers/Huvud';
 import { Meters } from '../containers/Meters';
 import { Popper } from '../containers/Popper';
@@ -25,6 +26,7 @@ export class Game extends Scene
   gramophoneButtons: array;
   gramophoneSoundListeners: array = [];
   gramophoneSounds: array;
+  hitarea: Hitarea;
   huvud: Huvud;
   introText: GameObjects.Image;
   kork: GameObjects.Image;
@@ -174,21 +176,19 @@ export class Game extends Scene
 
     this.popper = new Popper(this, 406, 299);
 
-    const hitarea = this.add.tileSprite(270, 72, 32, 46, 'hitarea');
-    hitarea.visible = false;
-
-    this.physics.add.existing(this.popper.hitarea());
-    this.physics.add.existing(hitarea);
-
-    this.physics.add.overlap(this.popper.hitarea(), hitarea, () => {
-      this.popper.enable();
-
-      // TODO from Internal_16_poppersBehavior.ls:
-      // if (parentScript.readyToCome = 0) {
-      //   parentScript.excitementAction = 5
-      //   parentScript.doAction()
-      // }
+    this.hitarea = new Hitarea(this, 270, 72, 32, 46);
+    this.hitarea.on('overlapstart', (target: GameObjects.Image) => {
+      if (target === this.popper.hitarea()) {
+        this.popper.enable();
+      }
     });
+    this.hitarea.on('overlapend', (target: GameObjects.Image) => {
+      if (target === this.popper.hitarea()) {
+        this.popper.disable();
+      }
+    });
+
+    this.hitarea.addCollider(this.popper.hitarea());
 
     // TODO set delay
     this.advance(5, this.scene242);
@@ -224,6 +224,10 @@ export class Game extends Scene
 
       if (this.candle2) {
         this.candle2.update();
+      }
+
+      if (this.hitarea) {
+        this.hitarea.update();
       }
 
       if (this.popper) {

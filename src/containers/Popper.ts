@@ -1,4 +1,4 @@
-import { GameObjects, Scene, Sound } from 'phaser';
+import { GameObjects, Input, Scene, Sound } from 'phaser';
 
 export class Popper extends GameObjects.Container
 {
@@ -42,7 +42,7 @@ export class Popper extends GameObjects.Container
 
     this.sound = this.scene.sound.add('popper');
 
-    this.scene.input.on('drag', (pointer?, gameObject?, dragX, dragY) => {
+    this.scene.input.on('drag', (pointer: Input.Pointer, gameObject: GameObjects.Image, dragX: number, dragY: number) => {
       gameObject.x = dragX;
       gameObject.y = dragY;
     });
@@ -66,6 +66,7 @@ export class Popper extends GameObjects.Container
         this.disableDrag();
 
         if (this.isEnabled) {
+          this.isEnabled = false;
           this.sound.play();
 
           this.backPlaceMoving = false;
@@ -90,6 +91,10 @@ export class Popper extends GameObjects.Container
     });
 
     this.enableDrag();
+  }
+
+  disable() {
+     this.isEnabled = false;
   }
 
   disableDrag() {
@@ -120,6 +125,8 @@ export class Popper extends GameObjects.Container
   }
 
   update() {
+    //console.log('update', this.isEnabled);
+
     if (this.backPlaceMoving) {
       let percent = (1 - Math.cos((this.backPlaceCount * 10) / 100 * Math.PI)) / 2;
       this.popper.x = ((1 - percent) * this.backPlacefromX) + (percent * this.originX);
