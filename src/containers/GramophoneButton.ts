@@ -6,7 +6,7 @@ export class GramophoneButton extends GameObjects.Container
   inactiveButton: GameObjects.Image;
   isActive: boolean = false;
 
-  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.activeButton = this.scene.add.image(x, y, 'buttonActive');

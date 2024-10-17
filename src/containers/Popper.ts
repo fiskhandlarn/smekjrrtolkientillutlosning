@@ -16,7 +16,7 @@ export class Popper extends GameObjects.Container
   popper: GameObjects.Image;
   sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
-  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.originX = x;

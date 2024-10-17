@@ -14,7 +14,7 @@ export class Huvud extends GameObjects.Container
   STATE_HAPPY1 = 21;
   STATE_HAPPY2 = 22;
 
-  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.arg = this.scene.add.image(x, y, 'huvud_arg');

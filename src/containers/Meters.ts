@@ -11,7 +11,7 @@ export class Meters extends GameObjects.Container
   currentExcitement: integer = 0;
   currentTime: integer = 0;
 
-  constructor(scene: Scene, x: number, y: number, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.scene.add.image(x, y, 'controllers');

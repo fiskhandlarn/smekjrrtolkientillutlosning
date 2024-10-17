@@ -5,7 +5,7 @@ export class Hitarea extends GameObjects.Container
   hitarea: GameObjects.T;
   colliders: Array<GameObjects.GameObject> = [];
 
-  constructor(scene: Scene, x: number, y: number, width: number, height: number, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, width: number, height: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.hitarea = this.scene.add.zone(x, y, width, height);

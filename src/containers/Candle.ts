@@ -8,7 +8,7 @@ export class Candle extends GameObjects.Container
   isActive: boolean = false;
   counter: integer = 0;
 
-  constructor(scene: Scene, x: number, y: number, candleType: string, children: Array<GameObjects.GameObject>) {
+  constructor(scene: Scene, x: number, y: number, candleType: string, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
 
     this.candle = this.scene.add.image(x, y, 'ljus_' + candleType);
