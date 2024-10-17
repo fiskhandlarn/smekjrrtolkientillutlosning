@@ -35,6 +35,7 @@ export class Game extends Scene
   popper: Popper;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
+  updateItems: Array<GameObjects.Container> = [];
 
   constructor () {
     super('Game');
@@ -99,6 +100,8 @@ export class Game extends Scene
     this.pupillRight = this.add.rectangle(279, 51, 2, 2, 0X000000);
 
     this.blunda = new Blunda(this, 270, 48);
+    this.updateItems.push(this.blunda);
+
     this.huvud = new Huvud(this, 278, 46);
     this.arm = new Arm(this, 184, 234);
 
@@ -203,36 +206,21 @@ export class Game extends Scene
     this.overlayHitarea.destroy();
     delete this.overlayHitarea;
 
+    // enable updating components
+    this.updateItems.push(this.gramophone);
+    this.updateItems.push(this.candle1);
+    this.updateItems.push(this.candle2);
+    this.updateItems.push(this.popper);
+    this.updateItems.push(this.hitarea);
+
     // TODO is this needed if the scene is reset?
     this.candle1.reset();
     this.candle2.reset();
   }
 
   update() {
-    if (this.blunda) {
-      this.blunda.update();
-    }
-
-    if (!this.overlayHitarea) {
-      if (this.gramophone) {
-        this.gramophone.update();
-      }
-
-      if (this.candle1) {
-        this.candle1.update();
-      }
-
-      if (this.candle2) {
-        this.candle2.update();
-      }
-
-      if (this.hitarea) {
-        this.hitarea.update();
-      }
-
-      if (this.popper) {
-        this.popper.update();
-      }
-    }
+    this.updateItems.forEach((item) => {
+      item.update();
+    });
   }
 }
