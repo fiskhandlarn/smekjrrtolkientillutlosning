@@ -30,8 +30,8 @@ export class Game extends Scene
   huvud: Huvud;
   introText: GameObjects.Image;
   kork: GameObjects.Image;
-  overlay: GameObjects.Rectangle;
-  overlayHitarea: GameObjects.Zone;
+  overlay?: GameObjects.Rectangle;
+  overlayHitarea?: GameObjects.Zone;
   popper: Popper;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
@@ -201,9 +201,10 @@ export class Game extends Scene
     logWithTime('scene242');
 
     // remove overlay ...
-    this.overlay.destroy();
+    this.overlay?.destroy();
+    delete this.overlay;
     // ... and enable interaction
-    this.overlayHitarea.destroy();
+    this.overlayHitarea?.destroy();
     delete this.overlayHitarea;
 
     // enable updating components
