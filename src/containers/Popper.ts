@@ -1,31 +1,18 @@
 import { GameObjects, Input, Scene, Sound } from 'phaser';
+import { Draggable } from './Draggable';
 
-export class Popper extends GameObjects.Container
+export class Popper extends Draggable
 {
   backPlaceCount = 1;
   backPlacefromX: number;
   backPlacefromY: number;
   backPlaceMoving = false;
-  currentFrame: GameObjects.Image;
-  frames: Array<GameObjects.Image> = [];
-  isEnabled: boolean = false;
-  originX: number;
-  originY: number;
   playPoppersAnim = false;
   playPoppersAnimCount: number = 0;
-  popper: GameObjects.Image;
   sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
   constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
-    super(scene, x, y, children);
-
-    this.originX = x;
-    this.originY = y;
-
-    this.popper = this.scene.add.image(x, y, 'poppers');
-    this.popper.setInteractive();
-    // this.popper.name = 'poppers'; // TODO tmp
-    this.frames.push(this.popper);
+    super(scene, x, y, 'poppers', children);
 
     [
       'popperanim1',
@@ -42,27 +29,19 @@ export class Popper extends GameObjects.Container
 
     this.sound = this.scene.sound.add('popper');
 
-    this.scene.input.on('drag', (pointer: Input.Pointer, gameObject: GameObjects.Image, dragX: number, dragY: number) => {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
-
+    /* TODO:
     this.scene.input.on('dragstart', () => {
-      this.scene.input.setDefaultCursor('grabbing');
 
-      /* TODO:
       if (parentScript.handPenisState = 0) {
         sprite(spriteNum).locZ = parentScript.spriteZ // ???
         parentScript.spriteZ = parentScript.spriteZ + 1 // ???
         parentScript.poppersState = 1 // this only controls if the popper should follow the mouse in Internal_16_poppersBehavior.ls
       }
-       */
     });
+     */
 
     this.scene.input.on('dragend', () => {
-      this.scene.input.setDefaultCursor('grab');
-
-      if (this.originX !== this.popper.x && this.originY !== this.popper.y) {
+      if (this.originX !== this.sprite.x && this.originY !== this.sprite.y) {
         this.disableDrag();
 
         if (this.isEnabled) {
@@ -74,17 +53,17 @@ export class Popper extends GameObjects.Container
 
           // move all frames to current position
           this.frames.slice(1).forEach((frame) => {
-            frame.x = this.popper.x;
-            frame.y = this.popper.y;
+            frame.x = this.sprite.x;
+            frame.y = this.sprite.y;
           });
         } else {
           this.backPlaceMoving = true;
           this.playPoppersAnim = false;
         }
 
-        this.currentFrame = this.popper;
-        this.backPlacefromX = this.popper.x;
-        this.backPlacefromY = this.popper.y;
+        this.currentFrame = this.sprite;
+        this.backPlacefromX = this.sprite.x;
+        this.backPlacefromY = this.sprite.y;
         this.backPlaceCount = 1;
         this.playPoppersAnimCount = 0;
       }
@@ -93,44 +72,13 @@ export class Popper extends GameObjects.Container
     this.enableDrag();
   }
 
-  disable() {
-     this.isEnabled = false;
-  }
-
-  disableDrag() {
-    this.scene.input.setDefaultCursor('default');
-    this.popper.off('pointerover');
-    this.popper.off('pointerout');
-    this.scene.input.setDraggable(this.popper, false);
-  }
-
-  enable() {
-    this.isEnabled = true;
-  }
-
-  enableDrag() {
-    this.popper.on('pointerover', () => {
-      this.scene.input.setDefaultCursor('grab');
-    });
-
-    this.popper.on('pointerout', () => {
-      this.scene.input.setDefaultCursor('default');
-    });
-
-    this.scene.input.setDraggable(this.popper);
-  }
-
-  hitarea() {
-    return this.popper;
-  }
-
   update() {
     //console.log('update', this.isEnabled);
 
     if (this.backPlaceMoving) {
       let percent = (1 - Math.cos((this.backPlaceCount * 10) / 100 * Math.PI)) / 2;
-      this.popper.x = ((1 - percent) * this.backPlacefromX) + (percent * this.originX);
-      this.popper.y = ((1 - percent) * this.backPlacefromY) + (percent * this.originY);
+      this.sprite.x = ((1 - percent) * this.backPlacefromX) + (percent * this.originX);
+      this.sprite.y = ((1 - percent) * this.backPlacefromY) + (percent * this.originY);
       this.backPlaceCount++;
 
       // console.log(
@@ -186,7 +134,7 @@ export class Popper extends GameObjects.Container
       }
 
       if (this.playPoppersAnimCount > 5) {
-        this.currentFrame = this.popper;
+        this.currentFrame = this.sprite;
 
         this.backPlaceMoving = true;
         this.playPoppersAnim = false;
