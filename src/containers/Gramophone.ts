@@ -10,9 +10,9 @@ export class Gramophone extends GameObjects.Container
   note1: GameObjects.Image;
   note2: GameObjects.Image;
   note4: GameObjects.Image;
-  notePositions: array;
-  noteCounters: array = [0, 0, 0];
-  noteYBreakpoints: array = [START_Y_VALUE, -200, -300];
+  notePositions: Array<{note: GameObjects.Image, x: number, y: number}>;
+  noteCounters: Array<number> = [0, 0, 0];
+  noteYBreakpoints: Array<number> = [START_Y_VALUE, -200, -300];
 
   constructor(scene: Scene, x: number, y: number, children?: Array<GameObjects.GameObject>) {
     super(scene, x, y, children);
