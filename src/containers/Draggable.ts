@@ -64,4 +64,33 @@ export class Draggable extends GameObjects.Container
   hitarea() {
     return this.sprite;
   }
+
+  update() {
+    if (this.backPlaceMoving) {
+      let percent = (1 - Math.cos((this.backPlaceCount * 10) / 100 * Math.PI)) / 2;
+      this.sprite.x = ((1 - percent) * this.backPlacefromX) + (percent * this.originX);
+      this.sprite.y = ((1 - percent) * this.backPlacefromY) + (percent * this.originY);
+      this.backPlaceCount++;
+
+      // console.log(
+      //   'update moving back',
+      //   percent,
+      //   this.backPlaceMoving,
+      //   this.playPoppersAnim,
+      //   this.backPlacefromX,
+      //   this.backPlacefromY,
+      //   this.backPlaceCount,
+      // );
+    }
+
+    if (this.backPlaceMoving && this.backPlaceCount > 9) {
+      this.backPlaceMoving = false;
+      this.enableDrag();
+
+      // console.log(
+      //   'update: stop moving back',
+      //   this.backPlaceCount,
+      // );
+    }
+  }
 }
