@@ -2,6 +2,10 @@ import { GameObjects, Input, Scene, Sound } from 'phaser';
 
 export class Draggable extends GameObjects.Container
 {
+  backPlaceCount: number = 1;
+  backPlacefromX: number;
+  backPlacefromY: number;
+  backPlaceMoving: boolean = false;
   frames: Array<GameObjects.Image> = [];
   currentFrame: GameObjects.Image;
   isEnabled: boolean = false;
@@ -27,10 +31,6 @@ export class Draggable extends GameObjects.Container
 
     this.scene.input.on('dragstart', () => {
       this.scene.input.setDefaultCursor('grabbing');
-    });
-
-    this.scene.input.on('dragend', () => {
-      this.scene.input.setDefaultCursor('grab');
     });
   }
 

@@ -1,12 +1,8 @@
-import { GameObjects, Input, Scene, Sound } from 'phaser';
+import { GameObjects, Scene, Sound } from 'phaser';
 import { Draggable } from './Draggable';
 
 export class Popper extends Draggable
 {
-  backPlaceCount = 1;
-  backPlacefromX: number;
-  backPlacefromY: number;
-  backPlaceMoving = false;
   playPoppersAnim = false;
   playPoppersAnimCount: number = 0;
   sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -41,6 +37,8 @@ export class Popper extends Draggable
      */
 
     this.scene.input.on('dragend', () => {
+      this.scene.input.setDefaultCursor('grab');
+
       if (this.originX !== this.sprite.x && this.originY !== this.sprite.y) {
         this.disableDrag();
 
