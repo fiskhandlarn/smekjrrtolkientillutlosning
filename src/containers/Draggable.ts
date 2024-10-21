@@ -34,6 +34,14 @@ export class Draggable extends GameObjects.Container
     });
   }
 
+  alignFramesWithSprite() {
+    // move all frames to current position
+    this.frames.slice(1).forEach((frame) => {
+      frame.x = this.sprite.x;
+      frame.y = this.sprite.y;
+    });
+  }
+
   disable() {
      this.isEnabled = false;
   }

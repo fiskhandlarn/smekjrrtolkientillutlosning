@@ -49,11 +49,7 @@ export class Popper extends Draggable
           this.backPlaceMoving = false;
           this.playPoppersAnim = true;
 
-          // move all frames to current position
-          this.frames.slice(1).forEach((frame) => {
-            frame.x = this.sprite.x;
-            frame.y = this.sprite.y;
-          });
+          this.alignFramesWithSprite();
         } else {
           this.backPlaceMoving = true;
           this.playPoppersAnim = false;
