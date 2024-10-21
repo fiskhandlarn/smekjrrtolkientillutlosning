@@ -53,6 +53,13 @@ export class Preloader extends Scene
     this.load.image('not1', 'not1.png');
     this.load.image('not2', 'not2.png');
     this.load.image('not4', 'not4.png');
+    this.load.image('pipa1', 'pipa1.png');
+    this.load.image('pipa2', 'pipa2.png');
+    this.load.image('pipa3', 'pipa3.png');
+    this.load.image('pipa4', 'pipa4.png');
+    this.load.image('pipa5', 'pipa5.png');
+    this.load.image('pipa6', 'pipa6.png');
+    this.load.image('pipa7', 'pipa7.png');
     this.load.image('popperanim1', 'popperanim1.png');
     this.load.image('popperanim2', 'popperanim2.png');
     this.load.image('popperanim3', 'popperanim3.png');

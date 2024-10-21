@@ -10,6 +10,7 @@ import { GramophoneButton } from '../containers/GramophoneButton';
 import { Hitarea } from '../containers/Hitarea';
 import { Huvud } from '../containers/Huvud';
 import { Meters } from '../containers/Meters';
+import { Pipe } from '../containers/Pipe';
 import { Popper } from '../containers/Popper';
 
 export class Game extends Scene
@@ -32,6 +33,7 @@ export class Game extends Scene
   kork: GameObjects.Image;
   overlay?: GameObjects.Rectangle;
   overlayHitarea?: GameObjects.Zone;
+  pipe: Pipe;
   popper: Popper;
   pupillLeft: GameObjects.Rectangle;
   pupillRight: GameObjects.Rectangle;
@@ -179,19 +181,13 @@ export class Game extends Scene
 
     this.popper = new Popper(this, 406, 299);
 
-    this.hitarea = new Hitarea(this, 270, 72, 32, 46);
-    this.hitarea.on('overlapstart', (target: GameObjects.Image) => {
-      if (target === this.popper.hitarea()) {
-        this.popper.enable();
-      }
-    });
-    this.hitarea.on('overlapend', (target: GameObjects.Image) => {
-      if (target === this.popper.hitarea()) {
-        this.popper.disable();
-      }
-    });
+    this.advance(1, this.scene7);
+  }
 
-    this.hitarea.addCollider(this.popper.hitarea());
+  scene7() {
+    logWithTime('scene7');
+
+    this.pipe = new Pipe(this, 123, 392);
 
     // TODO set delay
     this.advance(5, this.scene242);
@@ -199,6 +195,31 @@ export class Game extends Scene
 
   scene242() { // TODO final nr
     logWithTime('scene242');
+
+    this.hitarea = new Hitarea(this, 270, 72, 32, 46);
+    this.hitarea.on('overlapstart', (target: GameObjects.Image) => {
+      switch (target) {
+        case this.pipe.hitarea():
+          this.pipe.enable();
+          break;
+        case this.popper.hitarea():
+          this.popper.enable();
+          break;
+      }
+    });
+    this.hitarea.on('overlapend', (target: GameObjects.Image) => {
+      switch (target) {
+        case this.pipe.hitarea():
+          this.pipe.disable();
+          break;
+        case this.popper.hitarea():
+          this.popper.disable();
+          break;
+      }
+    });
+
+    this.hitarea.addCollider(this.popper.hitarea());
+    this.hitarea.addCollider(this.pipe.hitarea());
 
     // remove overlay ...
     this.overlay?.destroy();
@@ -213,6 +234,7 @@ export class Game extends Scene
     this.updateItems.push(this.candle2);
     this.updateItems.push(this.popper);
     this.updateItems.push(this.hitarea);
+    this.updateItems.push(this.pipe);
 
     // TODO is this needed if the scene is reset?
     this.candle1.reset();

@@ -34,11 +34,15 @@ export class Draggable extends GameObjects.Container
     });
   }
 
-  alignFramesWithSprite() {
+  alignFramesWithSprite(offsets?: Array<{x: number, y: number}>) {
+    if (offsets) {
+      offsets = offsets.slice(1);
+    }
+
     // move all frames to current position
-    this.frames.slice(1).forEach((frame) => {
-      frame.x = this.sprite.x;
-      frame.y = this.sprite.y;
+    this.frames.slice(1).forEach((frame, index) => {
+      frame.x = this.sprite.x + (offsets ? offsets[index]?.x : 0);
+      frame.y = this.sprite.y + (offsets ? offsets[index]?.y : 0);
     });
   }
 
